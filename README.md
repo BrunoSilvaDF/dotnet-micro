@@ -1,4 +1,4 @@
-Microservice in .NET 5, that comunicates with https://openweathermap.org/current
+Microservice in .NET 5, that consumes https://openweathermap.org/current
 
 Based on https://www.youtube.com/watch?v=MIJJCR3ndQQ
 
