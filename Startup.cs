@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Polly;
 
 namespace DotnetMicro
 {
@@ -30,7 +31,19 @@ namespace DotnetMicro
       services.Configure<ServiceSettings>(Configuration.GetSection(nameof(ServiceSettings)));
 
       // inject HttpClient into WeatherClient
-      services.AddHttpClient<WeatherClient>();
+      services.AddHttpClient<WeatherClient>()
+      // add Polly to handle remote server requests
+        .AddTransientHttpErrorPolicy(builder =>
+          builder.WaitAndRetryAsync(
+            // retry 10 times
+            10,
+            // on each retry attempt, will sleep as much as this
+            retryAttempt =>
+              // exponential backoff
+              // will await 2^retry attempt
+              TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+          )
+        );
 
       services.AddControllers();
       services.AddSwaggerGen(c =>
