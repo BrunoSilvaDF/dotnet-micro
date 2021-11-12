@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace DotnetMicro
 {
-  class WeatherClient
+  public class WeatherClient
   {
     private readonly HttpClient httpClient;
     private readonly ServiceSettings settings;
@@ -17,7 +17,7 @@ namespace DotnetMicro
 
     public record Weather(string description);
     public record Main(decimal temp);
-    public record Forecast(Weather[] Weathers, Main Main, long dt);
+    public record Forecast(Weather[] Weather, Main Main, long dt);
 
     public async Task<Forecast> GetCurrentWeatherAsync(string city)
     {
