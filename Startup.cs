@@ -29,6 +29,9 @@ namespace DotnetMicro
       // can access with IOptions<ServiceSettings> interface
       services.Configure<ServiceSettings>(Configuration.GetSection(nameof(ServiceSettings)));
 
+      // inject HttpClient into WeatherClient
+      services.AddHttpClient<WeatherClient>();
+
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
