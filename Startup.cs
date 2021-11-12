@@ -53,6 +53,9 @@ namespace DotnetMicro
           )
         );
 
+      // add healthchecks
+      services.AddHealthChecks().AddCheck<ExternalEndpointHealthCheck>("OpenWeather");
+
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
@@ -77,6 +80,9 @@ namespace DotnetMicro
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+
+        // add healthchecks endpoint
+        endpoints.MapHealthChecks("/health");
       });
     }
   }
