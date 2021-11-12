@@ -43,6 +43,14 @@ namespace DotnetMicro
               // will await 2^retry attempt
               TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
           )
+        )
+        // Circuit Break Policy
+        // will allow to try 3 times, if keep failing, break
+        .AddTransientHttpErrorPolicy(builder =>
+          builder.CircuitBreakerAsync(
+            3,
+            TimeSpan.FromSeconds(10)
+          )
         );
 
       services.AddControllers();
