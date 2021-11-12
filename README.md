@@ -1,5 +1,7 @@
 Microservice in .NET 5, that comunicates with https://openweathermap.org/current
 
+Based on https://www.youtube.com/watch?v=MIJJCR3ndQQ
+
 ## Tips/Commands
 
 `dotnet new webapi -o DotnetMicro --no-https` create project with no https
